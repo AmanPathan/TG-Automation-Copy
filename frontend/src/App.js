@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ReactDom from "react-dom/client";
+import Form from './components/Form';
+import LoginSignup from './LoginSignup';
+import Empty from './empty';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+// import 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const AppLayout = () => {
+    return (
+        <div>
+            <Empty/>
+            <Outlet/>
+        </div>
+    )
+};
 
-export default App;
+const appRouter = createBrowserRouter([
+    {
+        path:"/",
+        element: <AppLayout/>,
+        children: [
+            {
+                path: "/",
+                element: <LoginSignup/>,
+                errorElement: <Error/>,
+            },
+            {
+                path: "/infoForm",
+                element: <Form/>,
+                errorElement: <Error/>
+            },
+        ],
+        errorElement: <Error/>
+    },
+])
+
+const root = ReactDom.createRoot(document.getElementById("main"));
+
+root.render(<RouterProvider router={appRouter} />)
