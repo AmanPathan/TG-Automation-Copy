@@ -15,6 +15,7 @@ router.get("/getForms", getAllPerformanceForms);
 router.post("/createform",createPerformanceForm);
 router.post("/fillform",auth,fillForm);
 router.post("/forgetpassword",forgetPassword);
+router.post("/infoForm", addInfo);
 
 router.get("/test",(req, res) => {
     res.json({
