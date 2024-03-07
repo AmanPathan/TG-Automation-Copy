@@ -1,4 +1,4 @@
-const StudentPerformance = require("../models/StudentPerformance");
+const Performance = require("../models/StudentPerformance");
 const hostPerformance = require("../models/Form");
 const User = require("../models/User");
 const Form = require("../models/Form");
@@ -13,7 +13,7 @@ exports.createPerformanceForm = async(req,res) => {
             })
         }
         const newPerformanceForm = await Form.create({
-            form:[],
+            forms:[],
             createdAt: Date.now()
         });
 

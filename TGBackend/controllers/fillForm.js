@@ -1,4 +1,4 @@
-const StudentPerformance = require("../models/StudentPerformance");
+const Performance = require("../models/StudentPerformance");
 const Form = require("../models/Form");
 const {uploadFileToCloudinary} = require("../utils/cloudinary");
 const fileUpload = require('express-fileupload');
@@ -23,29 +23,29 @@ exports.fillForm = async (req, res) => {
             });
         }
 
-        let uploadFileUrl;
-        const docFile = req.files.docfile;
+        // let uploadFileUrl;
+        // // const docFile = req.files.docfile;
 
-        try{
-            const uploadResult = await cloudinary.uploader.upload(docFile.tempFilePath);
-            uploadedFileUrl = uploadResult.url;
-        } 
-        catch(error){
-            return res.status(300).json({
-                success:false,
-                message:"File ulpoad failed.",
-                error:error.message
-            });
-        }
-        const studentPerformanceData = JSON.parse(studentPerformance);
+        // try{
+        //     const uploadResult = await cloudinary.uploader.upload(docFile.tempFilePath);
+        //     uploadedFileUrl = uploadResult.url;
+        // } 
+        // catch(error){
+        //     return res.status(300).json({
+        //         success:false,
+        //         message:"File ulpoad failed.",
+        //         error:error.message
+        //     });
+        // }
+        const studentPerformanceData = await Performance.create(studentPerformance);
 
         // Update the student performance data with the uploaded file URL
-        studentPerformanceData.attachments.push(uploadFileUrl);
+        // studentPerformanceData.attachments.push(uploadFileUrl);
 
         let newStudentPerformance;
 
         try{
-            newStudentPerformance = await StudentPerformance.create(studentPerformanceData);
+            newStudentPerformance = await Performance.create(studentPerformanceData);
         }
         catch(error) {
             return res.status(400).json({

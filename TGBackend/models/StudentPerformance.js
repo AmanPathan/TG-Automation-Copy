@@ -11,11 +11,11 @@ const subjectSchema = new mongoose.Schema({
 const performanceSchema = new mongoose.Schema({
     email:{type : String, required : true},
     subjects:{
-        sub1: {type : subjectSchema, default : {}},
-        sub2: {type : subjectSchema, default : {}},
-        sub3: {type : subjectSchema, default : {}},
-        sub4: {type : subjectSchema, default : {}},
-        sub5: {type : subjectSchema, default : {}}
+        DSBDA: {type : subjectSchema, default : {}},
+        CC: {type : subjectSchema, default : {}},
+        CNS: {type : subjectSchema, default : {}},
+        WAD: {type : subjectSchema, default : {}},
+        Internship: {type : subjectSchema, default : {}}
     }
 });
 
