@@ -27,7 +27,11 @@ const userSchema = new mongoose.Schema({
         type: String, // Assuming role is a string
         required: true,
         enum: ['Admin', 'Faculty', 'Student'] // Example of enum for predefined roles
-    }
+    },
+    otp:{
+        type:String,
+        required:true,
+    },
 });
 
 const teacherSchema = new mongoose.Schema({

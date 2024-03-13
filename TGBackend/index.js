@@ -1,7 +1,15 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+
 // middlewares used for handling files
 const fileUpload = require("express-fileupload");
+
+//middleware
+app.use(bodyParser.json());
+app.use(cors());
 
 // setting configuration for our backend
 require('dotenv').config();
