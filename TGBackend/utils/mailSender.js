@@ -85,7 +85,6 @@ const sendEmailWithAttachment = async (email, subject, text, attachmentPath, rep
         from: process.env.MAIL_USER, // Sender address
         to: `${email}`, // List of recipients
         subject: `${subject}`, // Subject line
-        html: htmlBody, 
         attachments: [{ // Binary Buffer attachment
             filename: 'report.pdf',
             path: `${attachmentPath}`
