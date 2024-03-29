@@ -9,6 +9,9 @@ const subjectSchema = new mongoose.Schema({
 });
 
 const performanceSchema = new mongoose.Schema({
+    studentName:{type : String, required : true},
+    rollNumber:{type : String, required : true},
+    division:{type : String, required : true},
     email:{type : String, required : true},
     subjects:{
         DSBDA: {type : subjectSchema, default : {}},

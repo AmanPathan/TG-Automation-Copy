@@ -8,7 +8,6 @@ exports.sendPerformanceEmail = async (req, res) => {
         const {email, subject} = req.body;
 
         const performanceData = await Performance.findOne({email});
-        // console.log(performanceData);
         if(!performanceData || !performanceData.subjects) {
             return res.status(404).json({
                 success:false,
@@ -21,20 +20,28 @@ exports.sendPerformanceEmail = async (req, res) => {
             ...performanceData.subjects[subjectKey],
         }));
 
+        const { studentName, rollNumber, division } = performanceData;
+
         // console.log(reportData); // debug keliye 
 
         const doc = new PDFDocument();
         const pdfFilePath = `performance_report_${Date.now()}.pdf`;
         doc.pipe(fs.createWriteStream(pdfFilePath));
 
-        // Draw table headers
-        doc.text('Subject', 50, 50);
-        doc.text('Attendance', 150, 50);
-        doc.text('Unit Tests', 250, 50);
-        doc.text('Prelim', 350, 50);
-        doc.text('InSem', 450, 50);
+        // Adding Student personal information 
+        doc.text(`Name of the Student: ${studentName}`);
+        doc.text(`Roll Number: ${rollNumber}`);
+        doc.text(`Division: ${division}`);
+        doc.moveDown(); // move down one line to maintain readability.
 
-        let y = 70; // Initial Y position for the first row
+        // Draw table headers
+        doc.text('Subject', 50, 120);
+        doc.text('Attendance', 150, 120);
+        doc.text('Unit Tests', 250, 120);
+        doc.text('Prelim', 350, 120);
+        doc.text('InSem', 450, 120);
+
+        let y = 150; // Initial Y position for the first row
         reportData.forEach(subject => {
         doc.text(subject._doc.subject || '', 50, y); // Subject name from _doc
         doc.text(subject._doc.attendance?.toString() || '', 150, y);
@@ -45,7 +52,7 @@ exports.sendPerformanceEmail = async (req, res) => {
         y += 20; // Move to the next row
         });
 
-        y = 70; // Reset Y position for the second loop
+        y = 150; // Reset Y position for the second loop
         reportData.forEach(subject => {
         doc.text(subject.subject || '', 50, y); // Subject name directly accessible
         doc.text(subject.attendance?.toString() || '', 150, y);
