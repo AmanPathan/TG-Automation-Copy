@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
+const bodyParser = require('body-parser');
 // middlewares used for handling files
 const fileUpload = require("express-fileupload");
 
 // setting configuration for our backend
 require('dotenv').config();
 const PORT = process.env.PORT || 4000;
+
+//middlewares
+app.use(bodyParser.json());
+app.use(cors());
 
 // cookie-parser middleware used to parse the cookies stored in client's machine
 const cookieParser = require("cookie-parser");

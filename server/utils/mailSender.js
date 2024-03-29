@@ -13,7 +13,9 @@ const mailSender = async(email, title, body) => {
                 from: 'STUDY NOTION || COMPANY',
                 to: `${email}`,
                 subject:`${title}`,
-                html:`${body}`,
+                html:`
+                <h2>Dr.D Y Patil College of Engineering,Akurdi</h2>
+                <h3>OTP for Signup: ${body} </h3>`,
             })
             console.log(info);
             return info;
