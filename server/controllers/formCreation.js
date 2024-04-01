@@ -12,15 +12,26 @@ exports.createPerformanceForm = async(req,res) => {
                 message:"User not found! Make sure you logged in with correct authority"
             })
         }
+
+        const user = await User.findById(usedId);
+        if(!user || user.role !== 'Faculty') {
+            return res.status(403).json({
+                success: false,
+                message: "Only Faculties can create Performance Form"
+            });
+        }
+
         const newPerformanceForm = await Form.create({
             forms:[],
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            createdBy: userId            
         });
 
         console.log("New Performance Form created:", newPerformanceForm);
         return res.status(200).json({
             success:true,
-            message:"Performance form hosted successfully"
+            message:"Performance form hosted successfully",
+            formId: newPerformanceForm._id
         });
     }
     catch(error){

@@ -11,7 +11,6 @@ const PORT = process.env.PORT || 4000;
 
 //middlewares
 app.use(bodyParser.json());
-app.use(cors());
 
 // cookie-parser middleware used to parse the cookies stored in client's machine
 const cookieParser = require("cookie-parser");
@@ -19,10 +18,15 @@ app.use(cookieParser());
 
 // Middleware use kiya ja rha hai to parse data in db in json format
 app.use(express.json());
+
 app.use(fileUpload({
     useTempFiles:true
 }));
 
+app.use(cors({
+    origin: "*",
+    credentials: true,
+}));
 
 require("./config/database").connect();
 

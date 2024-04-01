@@ -27,15 +27,8 @@ const userSchema = new mongoose.Schema({
         type: String, // Assuming role is a string
         required: true,
         enum: ['Admin', 'Faculty', 'Student'] // Example of enum for predefined roles
-    }
-});
-
-const teacherSchema = new mongoose.Schema({
-    subjects:{
-        type:String,
-        required:true,
-        trim:true,
-    }
+    },
+    teacherGuardianGroups: [{type: mongoose.Schema.Types.ObjectId, ref: 'TeacherGuardianGroup'}]
 });
 
 const studentSchema = new mongoose.Schema({
@@ -44,16 +37,16 @@ const studentSchema = new mongoose.Schema({
         required:true,
         trim:true,
     },
-    batch:{
+    division:{
         type:String,
         required:true,
         trim:true,
-    }
+    },
+    teacherGuardianGroup: {type: mongoose.Schema.Types.ObjectId, ref: 'TeacherGuardianGroup'}
 });
 
 
 const User = mongoose.model("User", userSchema);
 const Student = User.discriminator("Student", studentSchema);
-const Teacher = User.discriminator("Teacher", teacherSchema);
 
-module.exports = {User, Student, Teacher};
+module.exports = {User, Student};
